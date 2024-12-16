@@ -1,8 +1,10 @@
+import {Navbar} from "../components/Navbar.tsx";
 
 export const Home = () => {
+
     return(
         <div>
-            <h1>Home</h1>
+            <Navbar currentPage={"Home"} />
         </div>
     )
 }
