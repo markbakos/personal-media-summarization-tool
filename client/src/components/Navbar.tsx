@@ -34,6 +34,11 @@ export const Navbar = ({ currentPage }) => {
                                         Text Summarization
                                     </DropdownMenuItem>
                                 </Link>
+                                <Link to={"/unwikipediafy"}>
+                                    <DropdownMenuItem className="cursor-pointer px-4 py-2 text-md text-gray-700 hover:bg-gray-100">
+                                        UnWikipediafy
+                                    </DropdownMenuItem>
+                                </Link>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
