@@ -13,7 +13,7 @@ export const Navbar = ({ currentPage }) => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <Link to="/" className="flex items-center">
-                        <span className="text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors">PMST</span>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 text-2xl font-semibold">PMST</span>
                     </Link>
 
                     <div className="hidden lg:ml-6 lg:flex lg:items-center">
@@ -29,11 +29,11 @@ export const Navbar = ({ currentPage }) => {
                                 </button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="mt-2 w-48 rounded-md shadow-lg bg-white">
-                                <DropdownMenuItem className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <Link to={"/summarize"}>
+                                <Link to={"/summarize"}>
+                                    <DropdownMenuItem className="cursor-pointer px-4 py-2 text-md text-gray-700 hover:bg-gray-100">
                                         Text Summarization
-                                    </Link>
-                                </DropdownMenuItem>
+                                    </DropdownMenuItem>
+                                </Link>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
