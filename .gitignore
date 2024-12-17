@@ -27,3 +27,4 @@ dist-ssr
 
 #Python Backend
 .venv
+uploads
