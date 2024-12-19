@@ -9,7 +9,8 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 from keybert import KeyBERT
-from sympy.simplify.hyperexpand import try_lerchphi
+import fitz
+from docx import Document
 
 app = FastAPI()
 
@@ -20,6 +21,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 def summarize_content(content: str, sentence_count: int = 4):
     """
@@ -32,6 +34,23 @@ def summarize_content(content: str, sentence_count: int = 4):
     summarizer = LsaSummarizer()
     summary = summarizer(parser.document, sentence_count)
     return " ".join(str(sentence) for sentence in summary)
+
+def calculate_sentence_length(content: str) -> int:
+    """
+    Calculate sentence count automatically depending on sentence count
+    :param content: the text to count the sentences in.
+    :return: sentence count for summarization
+    """
+
+    sentence_count = content.count(".")
+
+    if sentence_count < 10:
+        return 3
+    elif sentence_count < 50:
+        return 6
+    else:
+        return 10
+
 
 
 @app.post("/summarize/")
@@ -142,3 +161,50 @@ async def process_video(link:str = Body(...), sentence_count: int = Body(4)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+def parse_pdf(file_path):
+    doc = fitz.open(file_path)
+    text = ""
+    for page in doc:
+        text += page.get_text()
+    return text
+
+def parse_docx(file_path):
+    doc = Document(file_path)
+    text = ""
+    for paragraph in doc.paragraphs:
+        text += paragraph.text + "\n"
+    return text
+
+@app.post("/parse-document/")
+async def parse_document(file: UploadFile = File(...)):
+    """
+    Parse a document, extract text and summarize
+    :param file: the document
+    :return: summarized content
+    """
+
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    with open(file_path, "wb") as buffer:
+        buffer.write(await file.read())
+
+    try:
+        file_extension = file.filename.split('.')[-1].lower()
+
+        if file_extension == "pdf":
+            content = parse_pdf(file_path)
+        elif file_extension == "docx":
+            content = parse_docx(file_path)
+        else:
+            raise HTTPException(status_code=400, detail="Unsupported file type")
+
+        sentence_count = calculate_sentence_length(content)
+
+        summary = summarize_content(content, sentence_count)
+
+        os.remove(file_path)
+
+        return {"summary": summary}
+
+    except Exception as e:
+        os.remove(file_path)
+        raise HTTPException(status_code=500, detail=f"Error processing document: {e}")
