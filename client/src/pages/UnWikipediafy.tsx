@@ -20,11 +20,11 @@ export const UnWikipediafy = () => {
     }
 
     return (
-        <div className="bg-gradient-to-br from-purple-100 via-pink-100 to-rose-100">
+        <div className="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 min-h-screen">
             <Navbar currentPage="UnWikipediafy" />
             <main className="container mx-auto px-4 py-8">
 
-                <Card className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm mt-20">
+                <Card className="max-w-4xl mx-auto bg-gray-800/80 backdrop-blur-sm border-gray-700 sm:mt-20 mt-40">
                     <CardHeader className="text-center">
                         <CardTitle
                             className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
@@ -35,13 +35,13 @@ export const UnWikipediafy = () => {
                         <form onSubmit={handleAction} className="space-y-6">
                             <div className="space-y-2">
                                 <label htmlFor="text-input"
-                                       className="block text-sm font-medium text-gray-700">
+                                       className="block text-sm font-medium text-gray-300">
                                     Input your text here to remove [.] from copied wikipedia articles
                                 </label>
                                 <textarea
                                     id="text-input"
                                     placeholder="Enter the text..."
-                                    className="h-72 w-full bg-white resize-none border-black border-2 rounded-md p-2"
+                                    className="h-72 w-full bg-gray-700 resize-none border-gray-600 border-2 rounded-md p-2 text-gray-200 placeholder-gray-400"
                                     onChange={(e) => setText(e.target.value)}
                                     value={text}
                                 />

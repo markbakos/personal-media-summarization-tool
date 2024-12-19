@@ -9,36 +9,60 @@ import { ChevronDown } from 'lucide-react'
 
 export const Navbar = ({ currentPage }) => {
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <Link to="/" className="flex items-center">
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 text-2xl font-semibold">PMST</span>
+                        <span
+                            className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 text-2xl font-semibold">PMST</span>
                     </Link>
 
                     <div className="hidden lg:ml-6 lg:flex lg:items-center">
-                        <div className="text-lg font-medium text-gray-700 select-none">{currentPage}</div>
+                        <div className="text-lg font-medium text-gray-300 select-none">{currentPage}</div>
                     </div>
 
                     <div className="ml-3">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <button className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
+                                <button
+                                    className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
                                     Menu
-                                    <ChevronDown className="ml-2 -mr-0.5 h-4 w-4" aria-hidden="true" />
+                                    <ChevronDown className="ml-2 -mr-0.5 h-4 w-4" aria-hidden="true"/>
                                 </button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="mt-2 w-48 rounded-md shadow-lg bg-white">
+                            <DropdownMenuContent align="end"
+                                                 className="mt-2 w-48 rounded-md shadow-lg bg-gray-800 border border-gray-700 hover:text-white">
                                 <Link to={"/summarize"}>
-                                    <DropdownMenuItem className="cursor-pointer px-4 py-2 text-md text-gray-700 hover:bg-gray-100">
+                                    <DropdownMenuItem
+                                        className="cursor-pointer px-4 py-2 text-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
                                         Text Summarization
                                     </DropdownMenuItem>
                                 </Link>
+                                <Link to={"/video"}>
+                                    <DropdownMenuItem
+                                        className="cursor-pointer px-4 py-2 text-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                                        Summarize Videos
+                                    </DropdownMenuItem>
+                                </Link>
+                                <Link to={"/document"}>
+                                    <DropdownMenuItem
+                                        className="cursor-pointer px-4 py-2 text-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                                        Summarize Documents
+                                    </DropdownMenuItem>
+                                </Link>
+                                <Link to={"/keywords"}>
+                                    <DropdownMenuItem
+                                        className="cursor-pointer px-4 py-2 text-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                                        Get keywords
+                                    </DropdownMenuItem>
+                                </Link>
                                 <Link to={"/unwikipediafy"}>
-                                    <DropdownMenuItem className="cursor-pointer px-4 py-2 text-md text-gray-700 hover:bg-gray-100">
+                                    <DropdownMenuItem
+                                        className="cursor-pointer px-4 py-2 text-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
                                         UnWikipediafy
                                     </DropdownMenuItem>
                                 </Link>
+
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
@@ -47,7 +71,7 @@ export const Navbar = ({ currentPage }) => {
 
             <div className="sm:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1">
-                    <div className="font-medium text-gray-700 block px-3 py-2 rounded-md">{currentPage}</div>
+                    <div className="font-medium text-gray-300 block px-3 py-2 rounded-md">{currentPage}</div>
                 </div>
             </div>
         </nav>
