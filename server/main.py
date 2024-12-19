@@ -70,24 +70,6 @@ async def summarize_text(
 UPLOAD_DIR = "./uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-@app.post("/upload/")
-async def upload_video(file: UploadFile = File(...)):
-    """
-    Uploads a video and saves it
-    :param file: Uploaded video
-    :return: extracted audio's path
-    """
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
-
-    with open(file_path, "wb") as buffer:
-        buffer.write(await file.read())
-
-    audio_path = os.path.join(UPLOAD_DIR, "extracted_audio.mp3")
-    subprocess.run(["ffmpeg", "-i", file_path, "-q:a", "0", "-map", "a", audio_path])
-
-    return {"message": "video uploaded and audio extracted", "audio_path": audio_path}
-
-
 model = whisper.load_model("base")
 
 @app.post("/transcribe/")
@@ -98,15 +80,46 @@ async def transcribe_audio(file: UploadFile = File(...), sentence_count: int = 4
     :param file: mp3 file to transcribe
     :return: transcribed and summarized text
     """
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_audio:
-        temp_audio.write(await file.read())
-        temp_audio_path = temp_audio.name
 
-    result = model.transcribe(temp_audio_path)
-    transcription = result["text"]
-    summary = summarize_content(transcription, sentence_count)
-    os.remove(temp_audio_path)
-    return {"transcription": transcription, "summary": summary}
+    file_extension = file.filename.split('.')[-1].lower()
+
+    allowed_video_formats = ['mp4', 'mkv', 'mov']
+    allowed_audio_formats = ['mp3', 'wav', 'm4a']
+
+    if file_extension not in allowed_audio_formats + allowed_video_formats:
+        raise HTTPException(status_code=400, detail="Unsupported file type")
+
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=f".{file_extension}") as temp_file:
+            temp_file.write(await file.read())
+            input_file_path = temp_file.name
+
+        if file_extension in allowed_video_formats:
+            output_audio_path = input_file_path.rsplit('.',1)[0] + ".mp3"
+            ffmpeg_command = [
+                "ffmpeg", "-i", input_file_path, "-q:a", "0", "-map", "a", output_audio_path
+            ]
+            subprocess.run(ffmpeg_command, check=True)
+        else:
+            output_audio_path = input_file_path
+
+        result = model.transcribe(output_audio_path)
+        transcription = result["text"]
+
+        summary = summarize_content(transcription, sentence_count)
+
+        return {"transcription": transcription, "summary": summary}
+
+    except subprocess.CalledProcessError as ffmpeg_error:
+        raise HTTPException(status_code=500, detail=f"Error during audio extraction: {ffmpeg_error}")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error during transcription: {e}")
+
+    finally:
+        for path in [input_file_path, output_audio_path]:
+            if os.path.exists(path):
+                os.remove(path)
 
 
 @app.post("/keywords/")
