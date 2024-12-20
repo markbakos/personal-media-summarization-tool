@@ -55,7 +55,7 @@ export const DocSummarize = () => {
 
     return (
         <div className="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 min-h-screen">
-            <Navbar currentPage="Text Summarization"/>
+            <Navbar currentPage="Summarize Document"/>
             <main className="container mx-auto px-4 py-8">
                 <Card className="max-w-4xl mx-auto bg-gray-800/80 backdrop-blur-sm border-gray-700 sm:mt-20 mt-40">
                     <CardHeader className="text-center">
