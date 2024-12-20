@@ -14,7 +14,7 @@ export const Navbar = ({ currentPage }) => {
                 <div className="flex justify-between items-center h-16">
                     <Link to="/" className="flex items-center">
                         <span
-                            className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 text-2xl font-semibold">PMST</span>
+                            className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 text-2xl font-semibold select-none">PMST</span>
                     </Link>
 
                     <div className="hidden lg:ml-6 lg:flex lg:items-center">
