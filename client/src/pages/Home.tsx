@@ -18,8 +18,8 @@ export const Home = () => {
     }, [])
 
     return (
-        <main className="h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 text-white p-4">
-            <div className="w-screen h-screen overflow-hidden flex flex-col justify-center items-center">
+        <main className="h-screen overflow-hidden flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 text-white p-4">
+            <div className="w-screen h-screen  flex flex-col justify-center items-center">
                 <Navbar currentPage={"Home"}/>
                 <motion.h1
                     className="text-5xl md:text-6xl lg:text-7xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 select-none"
