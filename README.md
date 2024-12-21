@@ -7,7 +7,9 @@ A media summarization tool for long texts, documents, video files and links with
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" alt="TypeScript" title="TypeScript"/></code>
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="Python" title="Python"/></code>
 </div>
-
+<div align="center">
+	<img src="https://wakatime.com/badge/user/7a2d5960-3199-4705-8543-83755e2b4d0c/project/638c8225-7663-47c3-9f84-eff5b6d62f1c.svg" />
+</div>
 ## Features
 
 - Change how many sentences your summary should be.
