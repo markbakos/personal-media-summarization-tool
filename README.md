@@ -10,6 +10,7 @@ A media summarization tool for long texts, documents, video files and links with
 <div align="center">
 	<img src="https://wakatime.com/badge/user/7a2d5960-3199-4705-8543-83755e2b4d0c/project/638c8225-7663-47c3-9f84-eff5b6d62f1c.svg" />
 </div>
+
 ## Features
 
 - Change how many sentences your summary should be.
