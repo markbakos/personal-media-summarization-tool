@@ -87,6 +87,5 @@ For any inquiries, feel free to reach out:
 
 - Email: [markbakosss@gmail.com](mailto:markbakosss@gmail.com) 
 - GitHub: [markbakos](https://github.com/markbakos)
-- Instagram: [187mrk](https://instagram.com/187mrk)
 
 
